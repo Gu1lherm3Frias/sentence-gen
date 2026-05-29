@@ -3,11 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Sentence;
 
 class SentenceController extends Controller
 {
+    public function randomSentenceOfTheDay() {
+        $today = (int) date('N');
+
+        $sentenceOfTheDay = Sentence::where('date', $today)
+            ->inRandomOrder()
+            ->first();
+
+        return view('sentences.sentenceOfTheDay', compact('sentenceOfTheDay', 'today'));
+    }
     public function index() {
-        return view('sentences.welcome');
+        $sentences = Sentence::orderBy('date')->get();
+
+        return view('sentences.index', compact('sentences'));
     }
 
     public function create() {
@@ -15,6 +27,37 @@ class SentenceController extends Controller
     }
 
     public function store(Request $request) {
-        return view('sentence.store');
+        $sentence = new Sentence;
+        $sentence->date = $request->date;
+        $sentence->content = $request->content;
+        $sentence->author = $request->author;
+        $sentence->save();
+        return redirect('/');
     }
+
+    public function show(Sentence $sentence) {
+        return view('sentences.show', [
+            'sentence' => $sentence
+        ]);
+    }
+
+    public function edit(Sentence $sentence) {
+        return view('sentences.edit', [
+            'sentence' => $sentence
+        ]);
+    }
+
+    public function update(Request $request, Sentence $sentence) {
+        $sentence->date = $request->date;
+        $sentence->content = $request->content;
+        $sentence->author = $request->author;
+        $sentence->save();
+        return redirect("/sentences/{$sentence->id}");
+    }
+
+    public function destroy(Sentence $sentence) {
+        $sentence->delete();
+        return redirect('/');
+    }
+
 }

@@ -6,5 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sentence extends Model
 {
-    //
+    protected $fillable = [
+        'date',
+        'content',
+        'author'
+    ];
 }

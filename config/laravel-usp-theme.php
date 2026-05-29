@@ -2,7 +2,7 @@
 
 $admin = [
     [
-        'text' => '<i class="fas fa-atom"></i>  SubItem 1',
+        'text' => '<i class="fas fa-plus"></i>  SubItem 1',
         'url' => 'subitem1',
     ],
     [
@@ -25,8 +25,8 @@ $admin = [
 
 $submenu2 = [
     [
-        'text' => 'SubItem 1',
-        'url' => 'subitem1',
+        'text' => 'Nova Frase <i class="fas fa-plus-square"></i>',
+        'url' => '/sentences/create',
     ],
     [
         'text' => 'SubItem 2',
@@ -37,15 +37,15 @@ $submenu2 = [
 
 $menu = [
     [
-        'text' => '<i class="fas fa-home"></i> Home',
-        'url' => 'home',
+        'text' => '<i class="fas fa-magic"></i> Frase do dia',
+        'url' => 'sentenceOfTheDay',
     ],
     [
         # este item de menu será substituido no momento da renderização
         'key' => 'menu_dinamico',
     ],
     [
-        'text' => 'Drop Down',
+        'text' => '<i class="fas fa-bars"></i>',
         'submenu' => $submenu2,
         'can' => '',
     ],
