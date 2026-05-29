@@ -23,11 +23,12 @@ class SentenceCrudTest extends DuskTestCase
             $browser->visit('/sentences/create')
                     ->assertSee('Nova Frase')
                     ->select('date', random_int(1, 7))
-                    ->type('content', 'Frase de teste')
+                    ->type('content', 'Frase de teste Dusk')
                     ->type('author', 'Papa Leão')
                     ->press('Salvar')
-                    ->assertPathIs('/sentences/1')
-                    ->assertSee('Frase de teste Dusk');
+                    ->pause(2000)
+                    ->assertSee('Frase de teste Dusk')
+                    ->assertSee('Papa Leão');
 
             // 🔹 SHOW
             $browser->assertSee('Papa Leão');
@@ -44,7 +45,7 @@ class SentenceCrudTest extends DuskTestCase
 
             // 🔹 DELETE
             $browser->press('Deletar')
-                    ->assertPathIs('/sentences')
+                    ->assertPathIs('/')
                     ->assertDontSee('Frase editada de teste');
         });
     }

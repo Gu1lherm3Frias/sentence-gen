@@ -16,6 +16,7 @@ class SentenceController extends Controller
 
         return view('sentences.sentenceOfTheDay', compact('sentenceOfTheDay', 'today'));
     }
+    
     public function index() {
         $sentences = Sentence::orderBy('date')->get();
 

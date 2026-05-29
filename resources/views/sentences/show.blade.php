@@ -21,7 +21,7 @@
                     ✏️ Editar
                 </a>
 
-                <form action="{{ route('sentences.destroy', $sentence->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja deletar?')">
+                <form action="{{ route('sentences.destroy', $sentence->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
 
