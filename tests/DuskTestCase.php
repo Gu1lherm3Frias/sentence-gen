@@ -39,7 +39,7 @@ abstract class DuskTestCase extends BaseTestCase
         })->all());
 
         return RemoteWebDriver::create(
-            'http://sentence_selenium:4444',
+            'http://sentence_selenium:4444/wd/hub',
             DesiredCapabilities::chrome()->setCapability(
                 ChromeOptions::CAPABILITY, $options
             )
