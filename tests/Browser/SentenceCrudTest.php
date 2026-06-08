@@ -12,39 +12,58 @@ class SentenceCrudTest extends DuskTestCase
 
     /** @test */
     public function test_it_can_create_view_edit_and_delete_a_sentence()
-    {
+    {	
+		
+		//Spatie auth fix
+		$permissions = ['admin', 'boss', 'manager', 'poweruser', 'user'];
+		foreach ($permissions as $permission) {
+			\Spatie\Permission\Models\Permission::findOrCreate($permission, 'senhaunica');
+		}
+
         $this->browse(function (Browser $browser) {
 
-            // 🔹 INDEX
-            $browser->visit('/')
-                    ->assertSee('Todas as Frases');
+			//index
+			$browser->visit('/')
+					->assertSee('Todas as Frases');
 
-            // 🔹 CREATE
+			$browser->assertSee('Entrar')
+					->clickLink('Entrar')
+					->assertSee('Senhaunica-faker')
+					->type('loginUsuario', '123456')
+					->press('Login')
+					->assertSee('123456@usp.br')
+					->assertSee('Todas as Frases');
+
+
+			//create
             $browser->visit('/sentences/create')
-                    ->assertSee('Nova Frase')
-                    ->select('date', random_int(1, 7))
-                    ->type('content', 'Frase de teste Dusk')
-                    ->type('author', 'Papa Leão')
-                    ->press('Salvar')
-                    ->pause(2000)
-                    ->assertSee('Frase de teste Dusk')
-                    ->assertSee('Papa Leão');
+					->assertSee('123456@usp.br')
+					->assertSee('Nova Frase')
+					->select('date', random_int(1, 7))
+					->type('content', 'Frase de teste Dusk')
+					->type('author', 'Papa Leão')
+					->press('Salvar')
+					->pause(2000)
+					->assertSee('Frase de teste Dusk')
+					->assertSee('Papa Leão');
 
-            // 🔹 SHOW
+            // show
             $browser->assertSee('Papa Leão');
 
-            // 🔹 EDIT
+            // edit
             $browser->visit('/sentences/1/edit')
-                    ->assertSee('Editar Frase')
-                    ->select('date', 2)
-                    ->type('content', 'Frase editada de teste')
-                    ->type('author', 'Ronaldo Fenomeno')
-                    ->press('Salvar')
-                    ->assertPathIs('/sentences/1')
-                    ->assertSee('Frase editada de teste');
+					->assertSee('123456@usp.br')
+					->assertSee('Editar Frase')
+					->select('date', 2)
+					->type('content', 'Frase editada de teste')
+					->type('author', 'Ronaldo Fenomeno')
+					->press('Salvar')
+					->assertPathIs('/sentences/1')
+					->assertSee('Frase editada de teste');
 
-            // 🔹 DELETE
+            // delete
             $browser->press('Deletar')
+					->assertSee('123456@usp.br')
                     ->assertPathIs('/')
                     ->assertDontSee('Frase editada de teste');
         });
