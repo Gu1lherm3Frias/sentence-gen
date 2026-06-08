@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Sentence;
+use App\Http\Requests\SentenceRequest;
 
 class SentenceController extends Controller
 {
@@ -27,11 +28,12 @@ class SentenceController extends Controller
         return view('sentences.create');
     }
 
-    public function store(Request $request) {
+    public function store(SentenceRequest $request) {
         $sentence = new Sentence;
         $sentence->date = $request->date;
         $sentence->content = $request->content;
         $sentence->author = $request->author;
+        $sentence->user_id = auth()->user()->id;
         $sentence->save();
         return redirect('/');
     }
@@ -48,10 +50,11 @@ class SentenceController extends Controller
         ]);
     }
 
-    public function update(Request $request, Sentence $sentence) {
+    public function update(SentenceRequest $request, Sentence $sentence) {
         $sentence->date = $request->date;
         $sentence->content = $request->content;
         $sentence->author = $request->author;
+        $sentence->user_id = auth()->user()->id;
         $sentence->save();
         return redirect("/sentences/{$sentence->id}");
     }

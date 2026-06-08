@@ -32,12 +32,6 @@
                     <textarea name="content" class="form-control" rows="4" required></textarea>
                 </div>
 
-                {{-- AUTOR --}}
-                <div class="mb-3">
-                    <label class="form-label">Autor</label>
-                    <input type="text" name="author" class="form-control" required>
-                </div>
-
                 {{-- BOTÕES --}}
                 <div class="d-flex justify-content-end">
                     <button type="submit" class="btn btn-primary">
