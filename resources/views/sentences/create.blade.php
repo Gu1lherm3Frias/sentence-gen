@@ -29,7 +29,13 @@
                 {{-- CONTEÚDO --}}
                 <div class="mb-3">
                     <label class="form-label">Frase</label>
-                    <textarea name="content" class="form-control" rows="4" required></textarea>
+                    <textarea name="content" class="form-control" rows="4" required>{{ old('content') }}</textarea>
+                </div>
+
+                {{-- AUTOR --}}
+                <div class="mb-3">
+                    <label class="form-label">Autor</label>
+                    <input type="text" name="author" class="form-control" required value="{{ old('author') }}">
                 </div>
 
                 {{-- BOTÕES --}}

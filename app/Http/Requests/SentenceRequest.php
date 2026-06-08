@@ -25,7 +25,7 @@ class SentenceRequest extends FormRequest
         return [
             'date' => 'required',
             'content' => 'required',
-            'autho' => 'required',
+            'author' => 'required',
         ];
     }
 }
