@@ -16,12 +16,12 @@
                 — {{ $sentence->author ?? 'Desconhecido' }}
             </p>
 
-            <div class="d-flex gap-2">
+            <div class="d-flex justify-content-end gap-3 mt-4">
                 <a href="{{ route('sentences.edit', $sentence->id) }}" class="btn btn-primary btn-sm">
                     ✏️ Editar
                 </a>
 
-                <form action="{{ route('sentences.destroy', $sentence->id) }}" method="POST">
+                <form action="{{ route('sentences.destroy', $sentence->id) }}" method="POST" class="d-inline">
                     @csrf
                     @method('DELETE')
 
