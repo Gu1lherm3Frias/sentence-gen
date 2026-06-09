@@ -6,9 +6,20 @@
     <div class="card">
         <div class="card-body">
 
-            <span class="badge bg-info mb-2">
-                {{ \App\Services\DateService::numberToDayOfWeek($sentence->date) }}
-            </span>
+            <div class="d-flex justify-content-between align-items-start mb-2">
+                <span class="badge bg-info">
+                    {{ \App\Services\DateService::numberToDayOfWeek($sentence->date) }}
+                </span>
+
+                @php
+                    $rating = $sentence->rating ?? 0;
+                    $badgeClass = $rating >= 8 ? 'bg-success' : ($rating >= 5 ? 'bg-warning' : 'bg-danger');
+                @endphp
+
+                <span class="badge {{ $badgeClass }}">
+                    ⭐ {{ number_format($rating, 1) }}
+                </span>
+            </div>
 
             <h5 class="card-title">{{ $sentence->content }}</h5>
 
@@ -24,7 +35,6 @@
                 <form action="{{ route('sentences.destroy', $sentence->id) }}" method="POST" class="d-inline">
                     @csrf
                     @method('DELETE')
-
                     <button class="btn btn-danger btn-sm">
                         🗑️ Deletar
                     </button>

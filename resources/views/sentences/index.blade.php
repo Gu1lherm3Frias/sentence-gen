@@ -12,28 +12,36 @@
                 <div class="row">
                     @foreach($sentences as $sentence)
                         <div class="col-md-6 col-lg-4 mb-3">
-
                             <a href="{{ route('sentences.show', $sentence->id) }}" 
-                               style="text-decoration: none; color: inherit;">
-
+                            style="text-decoration: none; color: inherit;">
                                 <div class="card h-100">
                                     <div class="card-body">
-                                        <span class="badge bg-info mb-2">
-                                            {{ \App\Services\DateService::numberToDayOfWeek($sentence->date) }}
-                                        </span>
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <span class="badge bg-info">
+                                                {{ \App\Services\DateService::numberToDayOfWeek($sentence->date) }}
+                                            </span>
+                                            
+                                            <!-- Badge de rating colorida -->
+                                            @php
+                                                $rating = $sentence->rating ?? 0;
+                                                $badgeClass = $rating >= 8 ? 'bg-success' : ($rating >= 5 ? 'bg-warning' : 'bg-danger');
+                                            @endphp
+                                            
+                                            <span class="badge {{ $badgeClass }}">
+                                                ⭐ {{ number_format($rating, 1) }}
+                                            </span>
+                                        </div>
                                         
-                                        <p class="card-text fst-italic">
+                                        <p class="card-text fst-italic mt-2">
                                             "{{ Str::limit($sentence->content, 100) }}"
                                         </p>
                                         
                                         <small class="fw-bold">
-                                            — {{ $sentence->author }}
+                                            — {{ $sentence->author ?: 'Anônimo' }}
                                         </small>
                                     </div>
                                 </div>
-
                             </a>
-
                         </div>
                     @endforeach
                 </div>

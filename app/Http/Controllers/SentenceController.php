@@ -34,6 +34,7 @@ class SentenceController extends Controller
         $sentence->content = $request->content;
         $sentence->author = $request->author;
         $sentence->user_id = auth()->user()->id;
+        $sentence->rating = $request->rating;
         $sentence->save();
         return redirect('/');
     }
@@ -55,6 +56,7 @@ class SentenceController extends Controller
         $sentence->content = $request->content;
         $sentence->author = $request->author;
         $sentence->user_id = auth()->user()->id;
+        $sentence->rating = $request->rating;
         $sentence->save();
         return redirect("/sentences/{$sentence->id}");
     }

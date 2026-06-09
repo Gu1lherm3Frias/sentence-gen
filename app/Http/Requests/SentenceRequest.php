@@ -26,6 +26,7 @@ class SentenceRequest extends FormRequest
             'date' => 'required',
             'content' => 'required',
             'author' => 'required',
+            'rating' => 'nullable|numeric|min:0|max:10'
         ];
     }
 }

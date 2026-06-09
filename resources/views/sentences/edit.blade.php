@@ -33,7 +33,30 @@
                     </select>
                 </div>
 
-                <div class="d-flex gap-2">
+                <!-- Campo de Rating com Slider -->
+                <div class="mb-4">
+                    <label class="form-label fw-bold">
+                        ⭐ Avaliação da Frase 
+                        <span class="text-muted" id="ratingValue">0</span>/10
+                    </label>
+                    
+                    <div class="d-flex align-items-center gap-3">
+                        <input type="range" 
+                               name="rating" 
+                               class="form-range" 
+                               min="0" 
+                               max="10" 
+                               step="1"
+                               value="{{ old('rating', $sentence->rating ?? 0) }}"
+                               oninput="document.getElementById('ratingValue').innerText = this.value">
+                    </div>
+                    
+                    <div class="text-muted small mt-2">
+                        Dica: Deslize para avaliar esta frase (0 = péssimo, 10 = excelente)
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-end gap-2">
                     <button class="btn btn-success">
                         💾 Salvar
                     </button>
@@ -49,4 +72,15 @@
     </div>
 
 </div>
+
+<script>
+    // Atualiza o valor mostrado ao carregar a página
+    document.addEventListener('DOMContentLoaded', function() {
+        const ratingInput = document.querySelector('input[name="rating"]');
+        const ratingDisplay = document.getElementById('ratingValue');
+        if (ratingInput && ratingDisplay) {
+            ratingDisplay.innerText = ratingInput.value;
+        }
+    });
+</script>
 @endsection
